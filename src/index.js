@@ -3,33 +3,50 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // use this to avoid CORS issues
-const NUM_FETCH = 100
+const NUM_FETCH = 40 // number to fetch in each batch
 const API = 'https://cors.io/?https://pugme.herokuapp.com/bomb?count=' + NUM_FETCH;
 
 // base class, contains everything 
 class Base extends React.Component {
 	constructor(props) {
 		super(props);
+		this.fetchImages = this.fetchImages.bind(this);
 		this.state = {
 			hits: [], // fetched URLS
 			loading: true, // whether currently loading URLs
 		}
 	}
 
+	// function to fetch all images
+	// cont is true when we should proceed with fetching
+	fetchImages(cont = true) {
+		if (!cont) { return }
+		fetch(API)
+		.then(response => response.json())
+		.then(data => this.setState(
+    	{ hits: this.state.hits.concat(data["pugs"].filter(url => !this.state.hits.includes(url))),
+    	loading: false }
+    ));
+	}
+
 	componentDidMount() {
-		// add resize listener
+		// add resize and scroll listener: update sizes when resized, fetch more when scrolled to bottom
 		window.addEventListener("resize", this.resize);
+		window.addEventListener("scroll", this.handleScroll);
 		// fetch api link to get images
-    fetch(API)
-      .then(response => response.json())
-      .then(data => this.setState({ hits: data["pugs"], loading: false }));
+    this.fetchImages();
   }
 
   // set state for dynamic resizing
   resize = () => this.setState({windowHeight: window.innerHeight, windowWidth: window.innerWidth})
+  // handle scroll manages the scrolls, fetches more 
+  // sends argument cont, which is only true when at the bottom of the doc
+  handleScroll = () => this.fetchImages(((window.innerHeight + window.scrollY) >= document.body.scrollHeight));
 
+  // disconnect listeners
 	componentWillUnmount() {
-	  window.removeEventListener('resize', this.resize)
+	  window.removeEventListener('resize', this.resize);
+	  window.removeEventListener('scroll', this.handleScroll);
 	}
 
 	// this function displays an image at the given index
