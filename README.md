@@ -1,7 +1,7 @@
 # Anand's Pugs
 This project is built for Jobox's Coding Challenge. Access my submission at: https://anands-pugs.herokuapp.com/.
 
-![demo](https://i.imgur.com/Y88AEA2.gifv "demo video")
+![demo](https://media.giphy.com/media/1d5WBQ3a1NObapejO0/giphy.gif)
 
 ## Available Scripts
 
