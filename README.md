@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Anand's Pugs
+This project is built for Jobox's Coding Challenge.
+
 
 ## Available Scripts
 
