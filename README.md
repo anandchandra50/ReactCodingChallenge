@@ -1,6 +1,7 @@
 # Anand's Pugs
-This project is built for Jobox's Coding Challenge.
+This project is built for Jobox's Coding Challenge. Access my submission at: https://anands-pugs.herokuapp.com/.
 
+![demo](https://anands-pugs.herokuapp.com/ "demo video")
 
 ## Available Scripts
 
